@@ -1,0 +1,24 @@
+.inputs {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: white;
+  border-radius: 4px;
+  width: 250px;
+}
+
+.inputs > pre {
+  margin: 0px !important;
+}
+
+.inputs > * {
+  padding: 10px;
+}
+
+.inputs > *:not(:last-child) {
+  border-bottom: 1px solid gray;
+}
+
+.input > *:not(:last-child) {
+  margin-right: 10px;
+}
