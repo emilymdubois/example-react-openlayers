@@ -1,22 +1,20 @@
+code {
+  background-color: #ddddff;
+  padding: 2px 4px;
+  border-radius: 2px;
+}
+
 .inputs {
   position: absolute;
   top: 10px;
   left: 10px;
   background: white;
   border-radius: 4px;
-  width: 250px;
-}
-
-.inputs > pre {
-  margin: 0px !important;
-}
-
-.inputs > * {
   padding: 10px;
 }
 
 .inputs > *:not(:last-child) {
-  border-bottom: 1px solid gray;
+  padding-bottom: 10px;
 }
 
 .input > *:not(:last-child) {
