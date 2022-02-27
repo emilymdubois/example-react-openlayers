@@ -1,5 +1,5 @@
 import { useContext, useEffect } from "react";
-import OLTileLayer from "ol/layer/Tile";
+import TileLayer from "ol/layer/Tile";
 import { OSM } from "ol/source";
 
 import { MapContext } from "./MapProvider";
@@ -17,7 +17,7 @@ const BasemapLayer = () => {
       return;
     }
 
-    let tileLayer = new OLTileLayer({
+    const tileLayer = new TileLayer({
       source: new OSM(),
       zIndex: Z_INDEX,
     });

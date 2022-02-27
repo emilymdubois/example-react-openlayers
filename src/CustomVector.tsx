@@ -1,17 +1,16 @@
 import { useContext, useEffect, useState } from "react";
 import { debounce } from "lodash-es";
 import { Feature, Map, MapBrowserEvent } from "ol";
-import VectorSource from "ol/source/Vector";
-import LineString from "ol/geom/LineString";
 import { Coordinate } from "ol/coordinate";
+import VectorSource from "ol/source/Vector";
+import Geometry from "ol/geom/Geometry";
+import LineString from "ol/geom/LineString";
+import Point from "ol/geom/Point";
 import VectorLayer from "ol/layer/Vector";
 import { Fill, Stroke, Style } from "ol/style";
-import Geometry from "ol/geom/Geometry";
+import CircleStyle from "ol/style/Circle";
 
 import { MapContext } from "./MapProvider";
-import Circle from "ol/geom/Circle";
-import CircleStyle from "ol/style/Circle";
-import Point from "ol/geom/Point";
 
 type MousePosition = Coordinate | null;
 

@@ -1,8 +1,8 @@
 import { useContext, useEffect } from "react";
-import { never } from "ol/events/condition";
-import { Coordinate } from "ol/coordinate";
 import Draw from "ol/interaction/Draw";
 import GeometryType from "ol/geom/GeometryType";
+import { never } from "ol/events/condition";
+import { Coordinate } from "ol/coordinate";
 
 import { MapContext } from "./MapProvider";
 
