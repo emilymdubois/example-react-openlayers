@@ -41,7 +41,7 @@ const App = () => {
             onChange={() => setMode("drawInteraction")}
           />
           <label htmlFor="drawInteraction">
-            <code>Draw</code> interaction
+            <code>Draw</code> interaction ({makeCodeAnchor("DrawInteraction")})
           </label>
         </div>
 
@@ -54,7 +54,9 @@ const App = () => {
             checked={mode === "customVector"}
             onChange={() => setMode("customVector")}
           />
-          <label htmlFor="customVector">Custom vectors</label>
+          <label htmlFor="customVector">
+            Custom vectors ({makeCodeAnchor("CustomVector")})
+          </label>
         </div>
       </div>
     </div>
@@ -62,3 +64,17 @@ const App = () => {
 };
 
 export default App;
+
+/**
+ * Function to create a GitHub repository URL for a file.
+ */
+function makeCodeAnchor(fileName: string): JSX.Element {
+  return (
+    <a
+      href={`https://github.com/emilymdubois/example-react-openlayers/blob/main/src/${fileName}.tsx`}
+      target="_blank"
+    >
+      code
+    </a>
+  );
+}
