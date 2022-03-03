@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { fromLonLat } from "ol/proj";
 
 import MapProvider from "./MapProvider";
@@ -14,6 +14,12 @@ type Mode = "drawInteraction" | "customVector";
 const center = fromLonLat([174.7744, -41.2851]);
 
 /**
+ * The default blue OpenLayers uses:
+ * https://github.com/openlayers/openlayers/blob/0c23e17e138b091daab06d07230b46527c9c9076/src/ol/style/Style.js#L504.
+ */
+const DEFAULT_FILL_COLOR = "#0099FF";
+
+/**
  * Render an OpenLayers map with a permanent basemap layer and a leader line
  * between the map center and the current mouse position using two different
  * implementations: (1) OpenLayer `Draw` interaction, and (2) with custom
@@ -22,11 +28,24 @@ const center = fromLonLat([174.7744, -41.2851]);
 const App = () => {
   const [mode, setMode] = useState<Mode>("drawInteraction");
 
+  const [drawColor, setDrawColor] = useState(DEFAULT_FILL_COLOR);
+  const [lastValidDrawColor, setLastValidDrawColor] = useState<
+    string | undefined
+  >();
+
+  useEffect(() => {
+    if (isColor(drawColor)) {
+      setLastValidDrawColor(drawColor);
+    }
+  }, [drawColor]);
+
   return (
     <div>
       <MapProvider center={center}>
         <BasemapLayer />
-        {mode === "drawInteraction" && <DrawInteraction center={center} />}
+        {mode === "drawInteraction" && (
+          <DrawInteraction center={center} color={lastValidDrawColor} />
+        )}
         {mode === "customVector" && <CustomVector center={center} />}
       </MapProvider>
 
@@ -44,6 +63,26 @@ const App = () => {
             <code>Draw</code> interaction ({makeCodeAnchor("DrawInteraction")})
           </label>
         </div>
+
+        {mode === "drawInteraction" && (
+          <div className="input input-color">
+            <form>
+              <input
+                type="text"
+                id="drawInteractionColor"
+                name="drawInteractionColor"
+                value={drawColor}
+                onChange={(event) => setDrawColor(event.target.value)}
+              />
+
+              <input
+                type="reset"
+                value="Reset"
+                onClick={() => setDrawColor(DEFAULT_FILL_COLOR)}
+              />
+            </form>
+          </div>
+        )}
 
         <div className="input">
           <input
@@ -78,3 +117,12 @@ function makeCodeAnchor(fileName: string): JSX.Element {
     </a>
   );
 }
+
+/**
+ * Check if provided string is a valid color.
+ */
+const isColor = (color: string): boolean => {
+  const s = new Option().style;
+  s.color = color;
+  return s.color !== "";
+};

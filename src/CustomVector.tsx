@@ -19,8 +19,12 @@ type CustomLayer = VectorLayer<VectorSource<Geometry>> | undefined;
 const LINE_LAYER = "lineLayer";
 const POINT_LAYER = "pointLayer";
 
-const FILL_COLOR = "fuchsia";
-const STROKE_COLOR = "white";
+/**
+ * The default blue OpenLayers uses:
+ * https://github.com/openlayers/openlayers/blob/0c23e17e138b091daab06d07230b46527c9c9076/src/ol/style/Style.js#L504.
+ */
+const DEFAULT_FILL_COLOR = "#0099FF";
+const DEFAULT_STROKE_COLOR = "white";
 
 const lineLayer = new VectorLayer({
   className: LINE_LAYER,
@@ -28,13 +32,13 @@ const lineLayer = new VectorLayer({
   style: [
     new Style({
       stroke: new Stroke({
-        color: STROKE_COLOR,
+        color: DEFAULT_STROKE_COLOR,
         width: 5,
       }),
     }),
     new Style({
       stroke: new Stroke({
-        color: FILL_COLOR,
+        color: DEFAULT_FILL_COLOR,
         width: 3,
       }),
     }),
@@ -46,8 +50,8 @@ const pointLayer = new VectorLayer({
   source: new VectorSource({}),
   style: new Style({
     image: new CircleStyle({
-      fill: new Fill({ color: FILL_COLOR }),
-      stroke: new Stroke({ color: STROKE_COLOR, width: 1.5 }),
+      fill: new Fill({ color: DEFAULT_FILL_COLOR }),
+      stroke: new Stroke({ color: DEFAULT_STROKE_COLOR, width: 1.5 }),
       radius: 6,
     }),
   }),

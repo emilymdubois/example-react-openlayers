@@ -1,24 +1,33 @@
-import { useContext, useEffect } from "react";
-import Draw from "ol/interaction/Draw";
+import { useContext, useEffect, useMemo } from "react";
 import GeometryType from "ol/geom/GeometryType";
 import { never } from "ol/events/condition";
 import { Coordinate } from "ol/coordinate";
 
 import { MapContext } from "./MapProvider";
-
-const draw = new Draw({
-  type: GeometryType.LINE_STRING,
-  maxPoints: 2,
-  condition: never,
-});
+import { StyledDraw } from "./StyledDraw";
 
 /**
  * Render a draw interaction on the map on mount and remove on unmount. The
  * line's start point is set to the map's center, and the end point is never
  * set to mimic "follow cursor" behavior.
  */
-const DrawInteraction = ({ center }: { center: Coordinate }) => {
+const DrawInteraction = ({
+  center,
+  color,
+}: {
+  center: Coordinate;
+  color?: string;
+}) => {
   const { map } = useContext(MapContext);
+
+  const draw = useMemo(() => {
+    return new StyledDraw({
+      type: GeometryType.LINE_STRING,
+      maxPoints: 2,
+      condition: never,
+      color,
+    });
+  }, [color]);
 
   useEffect(() => {
     if (!map) {
@@ -31,7 +40,7 @@ const DrawInteraction = ({ center }: { center: Coordinate }) => {
     return () => {
       map.removeInteraction(draw);
     };
-  }, [map]);
+  }, [map, draw]);
 
   return null;
 };

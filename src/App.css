@@ -20,3 +20,21 @@ code {
 .input > *:not(:last-child) {
   margin-right: 10px;
 }
+
+.input-color {
+  margin-left: 28px;
+  width: 100%;
+  width: -moz-available;
+  width: -webkit-fill-available;
+  width: fill-available;
+}
+
+.input-color > form {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.input-color > form > *:first-child {
+  width: 90px;
+}
